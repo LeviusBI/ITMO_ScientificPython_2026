@@ -1,0 +1,95 @@
+# Examples:
+
+get_uniprot('P11473')
+>>> <Response [200]>
+
+get_uniprot('helloworld')
+>>> <Response [400]>
+
+get_uniprot('helloworld').json()
+>>> {'url': 'http://rest.uniprot.org/uniprotkb/accessions',
+ 'messages': ["Accession 'helloworld' has invalid format. It should be a valid UniProtKB accession with optional sequence range e.g. P12345[10-20]."]}
+
+uniprot_parse_response(get_uniprot('P11473'))
+>>>
+{'P11473': {'organism': 'Homo sapiens',
+  'geneInfo': [{'geneName': {'evidences': [{'evidenceCode': 'ECO:0000312',
+       'source': 'HGNC',
+       'id': 'HGNC:12679'}],
+     'value': 'VDR'},
+    'synonyms': [{'value': 'NR1I1'}]}],
+  'sequenceInfo': {'value': 'MEAMAASTSLPDPGDFDRNVPRICGVCGDRATGFHFNAMTCEGCKGFFRRSMKRKALFTCPFNGDCRITKDNRRHCQACRLKRCVDIGMMKEFILTDEEVQRKREMILKRKEEEALKDSLRPKLSEEQQRIIAILLDAHHKTYDPTYSDFCQFRPPVRVNDGGGSHPSRPNSRHTPSFSGDSSSSCSDHCITSSDMMDSSSFSNLDLSEEDSDDPSVTLELSQLSMLPHLADLVSYSIQKVIGFAKMIPGFRDLTSEDQIVLLKSSAIEVIMLRSNESFTMDDMSWTCGNQDYKYRVSDVTKAGHSLELIEPLIKFQVGLKKLNLHEEEHVLLMAICIVSPDRPGVQDAALIEAIQDRLSNTLQTYIRCRHPPPGSHLLYAKMIQKLADLRSLNEEHSKQYRCLSFQPECSMKLTPLVLEVFGNEIS',
+   'length': 427,
+   'molWeight': 48289,
+   'crc64': 'F95F300D042C4CB7',
+   'md5': '0D963ACD4A34674368324EE026023597'},
+  'type': 'protein'}
+}
+
+get_ensembl('ENSMUSG00000041147')
+>>> <Response [200]>
+
+get_ensembl('helloworld')
+>>> <Response [400]>
+
+get_ensembl('helloworld').json()
+>>> {'error': "ID 'helloworld' not found"}
+ensembl_parse_response(get_ensembl('ENSMUSG00000041147'))
+
+
+>>>
+{ 'ENSMUSG00000041147': {'object_type': 'Gene',
+  'species': 'mus_musculus',
+  'assembly_name': 'GRCm39',
+  'biotype': 'protein_coding',
+  'display_name': 'Brca2',
+  'id': 'ENSMUSG00000041147',
+  'db_type': 'core',
+  'description': 'breast cancer 2, early onset [Source:MGI Symbol;Acc:MGI:109337]',
+  'source': 'ensembl_havana',
+  'canonical_transcript': 'ENSMUST00000044620.11'}
+  }
+
+main(['P11473', 'Q91XI3', 'hello', 'ENSG00000157764', 'ENSG00000139618'])
+>>>
+{'P11473': {'organism': 'Homo sapiens',
+  'geneInfo': [{'geneName': {'evidences': [{'evidenceCode': 'ECO:0000312',
+       'source': 'HGNC',
+       'id': 'HGNC:12679'}],
+     'value': 'VDR'},
+    'synonyms': [{'value': 'NR1I1'}]}],
+  'sequenceInfo': {'value': 'MEAMAASTSLPDPGDFDRNVPRICGVCGDRATGFHFNAMTCEGCKGFFRRSMKRKALFTCPFNGDCRITKDNRRHCQACRLKRCVDIGMMKEFILTDEEVQRKREMILKRKEEEALKDSLRPKLSEEQQRIIAILLDAHHKTYDPTYSDFCQFRPPVRVNDGGGSHPSRPNSRHTPSFSGDSSSSCSDHCITSSDMMDSSSFSNLDLSEEDSDDPSVTLELSQLSMLPHLADLVSYSIQKVIGFAKMIPGFRDLTSEDQIVLLKSSAIEVIMLRSNESFTMDDMSWTCGNQDYKYRVSDVTKAGHSLELIEPLIKFQVGLKKLNLHEEEHVLLMAICIVSPDRPGVQDAALIEAIQDRLSNTLQTYIRCRHPPPGSHLLYAKMIQKLADLRSLNEEHSKQYRCLSFQPECSMKLTPLVLEVFGNEIS',
+   'length': 427,
+   'molWeight': 48289,
+   'crc64': 'F95F300D042C4CB7',
+   'md5': '0D963ACD4A34674368324EE026023597'},
+  'type': 'protein'},
+ 'Q91XI3': {'organism': 'Ictidomys tridecemlineatus',
+  'geneInfo': [{'geneName': {'value': 'INS'}}],
+  'sequenceInfo': {'value': 'MALWTRLLPLLALLALLGPDPAQAFVNQHLCGSHLVEALYLVCGERGFFYTPKSRREVEEQQGGQVELGGGPGAGLPQPLALEMALQKRGIVEQCCTSICSLYQLENYCN',
+   'length': 110,
+   'molWeight': 12004,
+   'crc64': '4511768D6622BEE5',
+   'md5': 'E140EF66FD075641899CD4F32279FBA8'},
+  'type': 'protein'},
+ 'hello': 'error:unknown database',
+ 'ENSG00000157764': {'object_type': 'Gene',
+  'assembly_name': 'GRCh38',
+  'species': 'homo_sapiens',
+  'db_type': 'core',
+  'biotype': 'protein_coding',
+  'display_name': 'BRAF',
+  'id': 'ENSG00000157764',
+  'description': 'B-Raf proto-oncogene, serine/threonine kinase [Source:HGNC Symbol;Acc:HGNC:1097]',
+  'canonical_transcript': 'ENST00000646891.2',
+  'source': 'ensembl_havana'},
+ 'ENSG00000139618': {'object_type': 'Gene',
+  'assembly_name': 'GRCh38',
+  'species': 'homo_sapiens',
+  'db_type': 'core',
+  'biotype': 'protein_coding',
+  'display_name': 'BRCA2',
+  'id': 'ENSG00000139618',
+  'description': 'BRCA2 DNA repair associated [Source:HGNC Symbol;Acc:HGNC:1101]',
+  'canonical_transcript': 'ENST00000380152.8',
+  'source': 'ensembl_havana'}}
